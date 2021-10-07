@@ -25,7 +25,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class HelloBot extends TelegramLongPollingBot{
    
     private Map estadoUsuario = new HashMap();
-    private Map MsjUsuario = new HashMap();
+    private Map MsjUsuario1 = new HashMap();
+    private Map MsjUsuario2 = new HashMap();
+    private Map MsjUsuario3 = new HashMap();
+    private Map MsjUsuario4 = new HashMap();
+    private Map MsjUsuario5 = new HashMap();
+    private Map MsjUsuario6 = new HashMap();
+    private Map MsjUsuario7 = new HashMap();
     public int estado;
     public String nombreCta ;
     public String pin, pinPrueba,moneda,tipo,nroCuenta="";
@@ -68,7 +74,7 @@ public class HelloBot extends TelegramLongPollingBot{
                     
                     try {
                         nombreCta=msjUsuario;
-                        MsjUsuario.put(userId, nombreCta);
+                        MsjUsuario1.put(userId, nombreCta);
                         if(nombreCta.equals(nombreChat)){//Si ingreso un nombre verdadero
                            msjMostrar = mensaje.PrimerPin(); //Pide primer pin para registro
                            
@@ -86,7 +92,7 @@ public class HelloBot extends TelegramLongPollingBot{
             case 2: msjUsuario = update.getMessage().getText();// Ingresa el pin nuevo
                     try {
                         pin = msjUsuario;
-                        MsjUsuario.put(userId, pin);
+                        MsjUsuario2.put(userId, pin);
                         msjMostrar = mensaje.CorrectRegister();// Registro correcto
                         fortuna.agregarCliente(cliente);//Agregar al cliente
                         
@@ -104,7 +110,7 @@ public class HelloBot extends TelegramLongPollingBot{
             case 4: msjUsuario = update.getMessage().getText();
                     try {
                         pinPrueba = msjUsuario;
-                        MsjUsuario.put(userId, pinPrueba);
+                        MsjUsuario3.put(userId, pinPrueba);
                         if(pin.equals(pinPrueba)){//Si los pines son iguales
                            msjMostrar = mensaje.Bienvenido(); //Dar bienvenida y menu de opciones
                            
@@ -122,7 +128,7 @@ public class HelloBot extends TelegramLongPollingBot{
             case 5: msjUsuario = update.getMessage().getText();
                     try {
                         int opcion = Integer.parseInt(msjUsuario);
-                        MsjUsuario.put(userId, opcion);
+                        MsjUsuario4.put(userId, opcion);
                         if(opcion == 1){
                             if(cuenta.getNroCuenta().equals("")){
                                 msjMostrar = mensaje.SinCuentas(); //Decir que el usuario no tiene cuentas y que la cree
@@ -168,7 +174,7 @@ public class HelloBot extends TelegramLongPollingBot{
             case 6: msjUsuario = update.getMessage().getText();
                     try {
                     int opcion = Integer.parseInt(msjUsuario);
-                    MsjUsuario.put(userId, opcion);
+                    MsjUsuario5.put(userId, opcion);
                     if(opcion ==1) {
                         moneda="USD";
                         nroCuenta="100001";
@@ -205,7 +211,7 @@ public class HelloBot extends TelegramLongPollingBot{
             case 8: msjUsuario = update.getMessage().getText();
                     try {
                         double retirar = Double.parseDouble(msjUsuario);
-                        MsjUsuario.put(userId, retirar);
+                        MsjUsuario6.put(userId, retirar);
                         double total = cuenta.retirar(retirar, cuenta.getSaldo());
                         if(retirar>=0 && retirar<=cuenta.getSaldo()){
                             saldo=total;
@@ -229,7 +235,7 @@ public class HelloBot extends TelegramLongPollingBot{
             case 9: msjUsuario = update.getMessage().getText();
                     try {
                         double depositar = Double.parseDouble(msjUsuario);
-                        MsjUsuario.put(userId, depositar);
+                        MsjUsuario7.put(userId, depositar);
                         double total = cuenta.depositar(depositar, cuenta.getSaldo());
                         if(depositar>0){
                             saldo=total;
@@ -259,7 +265,7 @@ public class HelloBot extends TelegramLongPollingBot{
                 execute(message);
             } catch(TelegramApiException e){
                 e.printStackTrace();
-            }
+            } 
         }
         
         
